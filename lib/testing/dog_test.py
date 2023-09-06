@@ -40,11 +40,10 @@ class TestDog:
         engine = create_engine(SQLITE_URL)
         Base.metadata.create_all(engine)
         Session = sessionmaker(bind=engine)
+        session = Session()
         
-        with Session() as session:
-         joey = Dog(name="joey", breed="cocker spaniel")
+        joey = Dog(name="joey", breed="cocker spaniel")
         save(session, joey)
-
 
         assert session.query(Dog).first().name == 'joey'
         assert session.query(Dog).first().breed == 'cocker spaniel'
